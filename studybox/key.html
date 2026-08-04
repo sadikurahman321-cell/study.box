@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDYBOX | 12-Hour Key Pass Verification</title>
+    
+    <!-- Tailwind CSS & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050507',
+                        surface: '#111114',
+                        border: '#ffffff1a',
+                        primary: '#facc15',
+                        primaryGlow: 'rgba(250, 204, 21, 0.15)',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-background text-gray-200 font-sans flex flex-col relative overflow-x-hidden">
+
+    <!-- Ambient Orbs -->
+    <div class="fixed inset-0 pointer-events-none bg-yellow-grid z-[-1]"></div>
+    <div class="fixed top-[-10%] left-[-5%] w-[400px] h-[400px] bg-primary/15 rounded-full blur-[150px] pointer-events-none z-[-1]"></div>
+
+    <!-- Header -->
+    <header class="border-b border-border bg-surface/80 backdrop-blur-xl px-6 py-4 sticky top-0 z-50 flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+            <div class="w-9 h-9 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center shadow-neon">
+                <i class="ph-bold ph-cube text-xl text-primary"></i>
+            </div>
+            <h1 class="text-lg font-black tracking-widest text-white font-mono">STUDY<span class="text-primary">BOX</span></h1>
+        </div>
+        <button onclick="window.location.href='index.html'" class="text-xs font-mono font-bold text-gray-400 hover:text-white flex items-center gap-2 border border-border px-3.5 py-1.5 rounded-xl btn-press">
+            <i class="ph-bold ph-arrow-left"></i> Return Home
+        </button>
+    </header>
+
+    <!-- Main Verification Box -->
+    <main class="flex-1 max-w-xl w-full mx-auto px-4 py-12 flex flex-col justify-center relative z-10">
+        
+        <div id="verification-card" class="glass-card p-6 sm:p-10 rounded-3xl border-primary/40 shadow-2xl text-center relative overflow-hidden pop-in">
+            <div class="absolute -top-20 -left-20 w-48 h-48 bg-primary/10 blur-[80px] rounded-full pointer-events-none"></div>
+
+            <!-- Verification Success Banner (Landed from AroLinks) -->
+            <div id="success-state" class="hidden flex-col items-center">
+                <div class="w-20 h-20 bg-green-500/10 border border-green-500/40 rounded-3xl flex items-center justify-center mb-6 text-green-400 shadow-neon">
+                    <i class="ph-bold ph-check-circle text-4xl animate-bounce"></i>
+                </div>
+                <h2 class="text-2xl font-black text-white font-mono mb-2">12-HOUR PASS ACTIVATED!</h2>
+                <p class="text-gray-300 text-sm mb-6">Your key has been verified through AroLinks. You now have 12 hours of full access to all lectures, videos, and study notes.</p>
+                <div class="bg-surface/80 border border-green-500/30 p-4 rounded-2xl mb-6 w-full font-mono text-xs text-green-400">
+                    <p class="font-bold mb-1">Authentic Pass Key: <span id="pass-code-display" class="text-white font-bold select-all bg-black/60 px-2 py-0.5 rounded border border-green-500/40">SBX-KEY</span></p>
+                    <p id="pass-time-display" class="mt-2 text-gray-300">Expires in: 12 hours 00 mins</p>
+                </div>
+                <button onclick="window.location.href='index.html'" class="w-full py-4 bg-primary text-black font-extrabold text-sm rounded-xl shadow-neon hover:shadow-neon-strong transition-all btn-press flex items-center justify-center gap-2">
+                    <span>EXPLORE ALL COURSES NOW</span>
+                    <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Active Key State -->
+            <div id="active-state" class="hidden flex-col items-center">
+                <div class="w-20 h-20 bg-primary/10 border border-primary/40 rounded-3xl flex items-center justify-center mb-6 text-primary shadow-neon">
+                    <i class="ph-bold ph-key text-4xl"></i>
+                </div>
+                <h2 class="text-2xl font-black text-white font-mono mb-2">PASS CURRENTLY ACTIVE</h2>
+                <p class="text-gray-300 text-sm mb-6">You already have an active 12-Hour Pass on this device.</p>
+                <div class="bg-surface/80 border border-primary/30 p-4 rounded-2xl mb-6 w-full font-mono text-xs text-primary">
+                    <p id="active-key-code" class="font-bold text-white mb-1">Key: --</p>
+                    <p id="active-time-display">Time Remaining: --</p>
+                </div>
+                <button onclick="window.location.href='index.html'" class="w-full py-3.5 bg-primary text-black font-extrabold text-sm rounded-xl shadow-neon hover:shadow-neon-strong transition-all btn-press">
+                    RETURN TO COURSES
+                </button>
+            </div>
+
+            <!-- Default Generate Key State -->
+            <div id="generate-state" class="flex flex-col items-center">
+                <div class="w-20 h-20 bg-primary/10 border border-primary/40 rounded-3xl flex items-center justify-center mb-6 text-primary shadow-neon">
+                    <i class="ph-bold ph-lock-key text-4xl"></i>
+                </div>
+                <h2 class="text-2xl font-black text-white font-mono mb-2">GENERATE 12-HOUR KEY</h2>
+                <p class="text-gray-300 text-xs sm:text-sm mb-6 leading-relaxed">
+                    To watch lectures & access batch contents, click below to generate your official key pass via AroLinks.
+                </p>
+
+                <!-- AroLinks API Button -->
+                <button onclick="generateKeyPass()" class="w-full py-4 bg-gradient-to-r from-primary to-orange-500 text-black font-extrabold text-sm rounded-xl shadow-neon hover:shadow-neon-strong transition-all btn-press flex items-center justify-center gap-2 mb-6">
+                    <i class="ph-bold ph-lightning text-lg"></i>
+                    <span>GENERATE 12-HOUR KEY PASS</span>
+                </button>
+
+                <!-- YouTube Tutorial Card -->
+                <div class="w-full bg-surface/90 border border-border p-5 rounded-2xl flex flex-col items-center text-center gap-3 mb-5">
+                    <div class="flex items-center gap-2 text-red-400 font-mono text-xs font-bold">
+                        <i class="ph-fill ph-youtube-logo text-xl text-red-500"></i>
+                        <span>HOW TO GENERATE KEY?</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Watch the official 1-minute step-by-step YouTube tutorial video below to complete the key generation steps easily.</p>
+                    <a href="https://youtu.be/2gEHhySUHcU?si=wonR_SCU7XV08s2r" target="_blank" class="w-full py-2.5 bg-red-600/10 border border-red-500/30 text-red-400 hover:bg-red-600/20 rounded-xl text-xs font-bold font-mono transition-colors flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-play-circle text-base"></i>
+                        <span>Watch Tutorial Video on YouTube</span>
+                        <i class="ph-bold ph-arrow-square-out"></i>
+                    </a>
+                </div>
+
+                <!-- Error Alert Box -->
+                <div id="key-error-msg" class="hidden bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-mono p-3 rounded-xl mb-4 text-left w-full"></div>
+
+                <!-- Localhost Testing Info Banner -->
+                <div id="local-testing-notice" class="hidden bg-blue-950/40 border border-blue-500/30 text-blue-200 text-xs font-mono p-3 rounded-xl mb-4 text-left w-full">
+                    💡 <strong>Local Testing Mode Detected:</strong><br>
+                    AroLinks requires a public domain (like Vercel/Netlify). For local development, today's valid key code is: <code id="local-key-display" class="bg-black/60 px-1.5 py-0.5 rounded text-primary font-bold"></code>
+                </div>
+
+                <!-- Strict Key Input -->
+                <div class="flex flex-col gap-1 border-t border-border pt-4 w-full text-left">
+                    <p class="text-[11px] text-gray-400 font-mono mb-1">Enter your generated Key Pass Code:</p>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="manual-key-input" placeholder="e.g. SBX-20260804-PASS" class="flex-1 bg-surface border border-border text-white text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-primary/60 font-mono uppercase">
+                        <button onclick="StudyBoxKey.submitManualKey()" class="bg-primary hover:bg-primaryHover text-black px-4 py-2.5 rounded-xl text-xs font-bold font-mono btn-press">
+                            Verify Key
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="key-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isVerify = urlParams.get('action') === 'verify' || urlParams.get('verify') === '1';
+            const secretToken = urlParams.get('secret_token');
+
+            const isLocalhost = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+            if (isLocalhost) {
+                const noticeEl = document.getElementById('local-testing-notice');
+                const keyDisplay = document.getElementById('local-key-display');
+                if (noticeEl && keyDisplay) {
+                    noticeEl.classList.remove('hidden');
+                    keyDisplay.innerText = getTodaySecretKey();
+                }
+            }
+
+            if (isVerify) {
+                const passCode = StudyBoxKey.activatePass(secretToken);
+                if (passCode) {
+                    document.getElementById('generate-state').classList.add('hidden');
+                    document.getElementById('success-state').classList.remove('hidden');
+                    document.getElementById('success-state').classList.add('flex');
+                    document.getElementById('pass-code-display').innerText = passCode;
+                    document.getElementById('pass-time-display').innerText = `Expires in: ${StudyBoxKey.getRemainingTimeText()}`;
+                } else {
+                    document.getElementById('generate-state').classList.add('hidden');
+                    document.getElementById('success-state').classList.remove('hidden');
+                    document.getElementById('success-state').classList.add('flex');
+                    document.getElementById('pass-code-display').innerText = StudyBoxKey.activatePass();
+                    document.getElementById('pass-time-display').innerText = `Expires in: ${StudyBoxKey.getRemainingTimeText()}`;
+                }
+            } else if (StudyBoxKey.isKeyValid()) {
+                document.getElementById('generate-state').classList.add('hidden');
+                document.getElementById('active-state').classList.remove('hidden');
+                document.getElementById('active-state').classList.add('flex');
+                document.getElementById('active-key-code').innerText = `Key Code: ${localStorage.getItem('studybox_key_code') || 'ACTIVE-PASS'}`;
+                document.getElementById('active-time-display').innerText = `Time Remaining: ${StudyBoxKey.getRemainingTimeText()}`;
+            }
+        });
+
+        function generateKeyPass() {
+            StudyBoxKey.redirectToAroLink();
+        }
+    </script>
+</body>
+</html>
