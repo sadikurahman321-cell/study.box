@@ -1,0 +1,178 @@
+{
+  "101": {
+    "title": "Commerce 12th - PRARAMBH 2.0 (2026-27)",
+    "thumbnail": "https://dylnd2lqy6eys.cloudfront.net/1770981347/admin_v2/uploads/courses/thumbnail/379913_125_Commerce%20Prarambh%202.0%20Batch%20Class%2012th%20App%20Banners.jpg",
+    "description": "<h3>Welcome to PRARAMBH 2.0 Commerce Class 12th</h3><p>Comprehensive course covering Accountancy, Economics, Business Studies, Applied Maths, and English with live classes, structured PDF notes, DPPs, and weekly tests.</p>",
+    "folders": {
+      "0": [
+        {
+          "type": "folder",
+          "entity_id": "acc-101",
+          "title": "01. Accountancy",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 4 }, "video": { "paid": 12 }, "pdf": { "paid": 12 } }
+          }
+        },
+        {
+          "type": "folder",
+          "entity_id": "eco-101",
+          "title": "02. Economics",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 3 }, "video": { "paid": 10 }, "pdf": { "paid": 10 } }
+          }
+        },
+        {
+          "type": "folder",
+          "entity_id": "bst-101",
+          "title": "03. Business Studies",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 5 }, "video": { "paid": 15 }, "pdf": { "paid": 15 } }
+          }
+        },
+        {
+          "type": "folder",
+          "entity_id": "eng-101",
+          "title": "04. English Core",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 2 }, "video": { "paid": 8 }, "pdf": { "paid": 8 } }
+          }
+        }
+      ],
+      "acc-101": [
+        {
+          "type": "file",
+          "entity_id": "v101",
+          "title": "Ch 01 : Accounting for Partnership Firms - Fundamentals (Part 1)",
+          "data": {
+            "file_type": 2,
+            "video_type": 1,
+            "duration": 4320,
+            "thumbnail": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
+            "created_at": 1722700000,
+            "file_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          }
+        },
+        {
+          "type": "file",
+          "entity_id": "pdf101",
+          "title": "Ch 01 : Partnership Fundamentals - Lecture Handout & Class Notes PDF",
+          "data": {
+            "file_type": 1,
+            "created_at": 1722700500,
+            "file_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          }
+        },
+        {
+          "type": "file",
+          "entity_id": "v102",
+          "title": "Ch 01 : Profit and Loss Appropriation Account & Capital Accounts (Part 2)",
+          "data": {
+            "file_type": 2,
+            "video_type": 1,
+            "duration": 5100,
+            "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
+            "created_at": 1722786400,
+            "file_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          }
+        },
+        {
+          "type": "file",
+          "entity_id": "pdf102",
+          "title": "Ch 01 : Practice Questions Sheet (DPP 01) with Solutions",
+          "data": {
+            "file_type": 1,
+            "created_at": 1722786900,
+            "file_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          }
+        }
+      ]
+    }
+  },
+  "103": {
+    "title": "Science (PCMB) 12th - PRARAMBH 2.0 (2026-27)",
+    "thumbnail": "https://dylnd2lqy6eys.cloudfront.net/1770981347/admin_v2/uploads/courses/thumbnail/1153510_125_Science%20Prarambh%202.0%20Batch%20Class%2012th%20App%20Banners.jpg",
+    "description": "<h3>Complete Class 12 Science (PCMB) Master Course</h3><p>Comprehensive coverage of Physics, Chemistry, Mathematics, and Biology for CBSE Board exams & Entrance preparation with daily live lectures, formula sheets, and chapter tests.</p>",
+    "folders": {
+      "0": [
+        {
+          "type": "folder",
+          "entity_id": "phy-103",
+          "title": "01. Physics",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 6 }, "video": { "paid": 24 }, "pdf": { "paid": 24 } }
+          }
+        },
+        {
+          "type": "folder",
+          "entity_id": "chem-103",
+          "title": "02. Chemistry",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 5 }, "video": { "paid": 20 }, "pdf": { "paid": 20 } }
+          }
+        },
+        {
+          "type": "folder",
+          "entity_id": "math-103",
+          "title": "03. Mathematics",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 7 }, "video": { "paid": 28 }, "pdf": { "paid": 28 } }
+          }
+        },
+        {
+          "type": "folder",
+          "entity_id": "bio-103",
+          "title": "04. Biology",
+          "data": {
+            "thumbnail": "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=600&q=80",
+            "content_counts": { "folders": { "total": 5 }, "video": { "paid": 18 }, "pdf": { "paid": 18 } }
+          }
+        }
+      ],
+      "phy-103": [
+        {
+          "type": "file",
+          "entity_id": "v301",
+          "title": "Ch 01 : Electrostatics - Electric Charges & Coulomb's Law (L-01)",
+          "data": {
+            "file_type": 2,
+            "video_type": 1,
+            "duration": 4800,
+            "thumbnail": "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?auto=format&fit=crop&w=600&q=80",
+            "created_at": 1722700000,
+            "file_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          }
+        },
+        {
+          "type": "file",
+          "entity_id": "pdf301",
+          "title": "Ch 01 : Electrostatics Formula Sheet & Short Notes PDF",
+          "data": {
+            "file_type": 1,
+            "created_at": 1722700500,
+            "file_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          }
+        },
+        {
+          "type": "file",
+          "entity_id": "v302",
+          "title": "Ch 01 : Electric Field Lines, Dipole & Gauss Law Applications (L-02)",
+          "data": {
+            "file_type": 2,
+            "video_type": 1,
+            "duration": 5400,
+            "thumbnail": "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?auto=format&fit=crop&w=600&q=80",
+            "created_at": 1722786400,
+            "file_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          }
+        }
+      ]
+    }
+  }
+}

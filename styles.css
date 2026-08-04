@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --color-bg: #050507;
+  --color-surface: #111114;
+  --color-surface-hover: #18181c;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-bright: rgba(250, 204, 21, 0.3);
+  --color-primary: #facc15;
+  --color-primary-hover: #eab308;
+  --color-primary-glow: rgba(250, 204, 21, 0.2);
+  --color-accent: #f97316;
+  --color-green: #10b981;
+  --color-red: #ef4444;
+  --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: #fafafa;
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  background-image: radial-gradient(circle at 50% 0%, rgba(250, 204, 21, 0.04) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050507;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a20;
+  border-radius: 4px;
+  border: 2px solid #050507;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(17, 17, 20, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+.glass-card {
+  background: rgba(14, 14, 18, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Interactive click effect */
+.btn-press {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* Card Hover Effects */
+.premium-card {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.premium-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(250, 204, 21, 0.4);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 25px rgba(250, 204, 21, 0.15);
+}
+.premium-card:hover .card-img {
+  transform: scale(1.08);
+}
+
+/* Image Shine Effect */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(-25deg);
+  transition: 0.7s;
+  z-index: 10;
+}
+.premium-card:hover .shine-effect::after {
+  left: 150%;
+  transition: 0.7s;
+}
+
+/* Pop in animation */
+.pop-in {
+  animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+}
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Text Gradient */
+.text-gradient {
+  background: linear-gradient(to right, #facc15, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Yellow Grid Background */
+.bg-yellow-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(250, 204, 21, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(250, 204, 21, 0.03) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at top center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at top center, black 40%, transparent 80%);
+  animation: gridPulse 15s ease-in-out infinite alternate;
+}
+
+@keyframes gridPulse {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Ambient Orbs */
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.15; }
+  33% { transform: translate(30px, -40px) scale(1.1) rotate(120deg); opacity: 0.25; }
+  66% { transform: translate(-20px, 20px) scale(0.9) rotate(240deg); opacity: 0.2; }
+  100% { transform: translate(0, 0) scale(1) rotate(360deg); opacity: 0.15; }
+}
+.orb-1 { animation: drift 15s infinite ease-in-out; }
+.orb-2 { animation: drift 20s infinite ease-in-out reverse; }
