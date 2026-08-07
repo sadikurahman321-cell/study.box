@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#050507">
+    <title>STUDYBOX | Premium Modern Batch Platform</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom CSS & Key Manager -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="key-manager.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050507',
+                        surface: '#111114',
+                        surfaceHover: '#18181c',
+                        border: '#ffffff1a',
+                        primary: '#facc15',
+                        primaryHover: '#eab308',
+                        primaryGlow: 'rgba(250, 204, 21, 0.15)',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(250, 204, 21, 0.2)',
+                        'neon-strong': '0 0 30px rgba(250, 204, 21, 0.4)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen relative flex flex-col font-sans pb-12">
+
+    <!-- Background Ambient Glow Orbs -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[45%] h-[45%] rounded-full bg-primary/10 blur-[130px] orb-1"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] rounded-full bg-orange-600/10 blur-[130px] orb-2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-yellow-grid opacity-40 z-[-1]"></div>
+    </div>
+
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-background/90 backdrop-blur-xl border-b border-border shadow-md">
+        <div class="max-w-[90rem] mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between py-4 gap-4">
+
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer btn-press group w-max" onclick="window.location.reload()">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary/20 via-surface to-orange-500/20 border border-primary/40 flex items-center justify-center relative overflow-hidden shadow-neon">
+                        <i class="ph-bold ph-cube text-2xl text-primary transform group-hover:rotate-12 transition-transform duration-300"></i>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black tracking-wider text-white font-mono flex items-center gap-1.5">
+                            STUDY<span class="text-primary font-mono text-sm bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-md text-primary font-bold">BOX</span>
+                        </h1>
+                        <p class="text-[10px] text-gray-400 font-mono tracking-widest uppercase">PRO LEARNING HUB</p>
+                    </div>
+                </div>
+
+                <!-- Center: Key Status Badge -->
+                <div id="key-status-badge" class="flex justify-center"></div>
+
+                <!-- Unified Navigation Tabs -->
+                <div class="flex items-center gap-1 overflow-x-auto no-scrollbar w-full md:w-auto p-1.5 bg-surface border border-border rounded-xl shadow-glass">
+                    <button id="tab-new" onclick="switchTab('new')" class="tab-btn flex-1 md:flex-none px-5 py-2.5 rounded-lg text-sm font-semibold transition-all bg-border text-white shadow-sm flex items-center justify-center gap-2 whitespace-nowrap btn-press">
+                        <i id="icon-new" class="ph-duotone ph-lightning text-lg text-primary"></i> New Batches
+                    </button>
+                    <button id="tab-old" onclick="switchTab('old')" class="tab-btn flex-1 md:flex-none px-5 py-2.5 rounded-lg text-sm font-medium transition-all text-gray-400 hover:text-white flex items-center justify-center gap-2 whitespace-nowrap btn-press">
+                        <i id="icon-old" class="ph-duotone ph-archive text-lg"></i> Old Batches
+                    </button>
+                    <button id="tab-wishlist" onclick="switchTab('wishlist')" class="tab-btn flex-1 md:flex-none px-5 py-2.5 rounded-lg text-sm font-medium transition-all text-gray-400 hover:text-white flex items-center justify-center gap-2 whitespace-nowrap relative btn-press">
+                        <i id="icon-wishlist" class="ph-duotone ph-heart text-lg"></i> Wishlist
+                        <span id="wishlist-badge" class="hidden absolute -top-1 -right-1 md:relative md:top-auto md:right-auto bg-primary text-background text-[10px] font-black px-1.5 py-0.5 rounded-full md:ml-1 shadow-neon">0</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 w-full max-w-[90rem] mx-auto px-4 sm:px-6 relative z-10 pt-6">
+
+        <!-- Controls Bar: Category Filters & Search -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 pop-in">
+            <!-- Category Quick Filters -->
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto py-1">
+                <button onclick="filterCategory('all')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-primary text-black shadow-neon">All Courses</button>
+                <button onclick="filterCategory('12th')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-surface hover:bg-surfaceHover border border-border text-gray-300 hover:text-white">Class 12th</button>
+                <button onclick="filterCategory('11th')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-surface hover:bg-surfaceHover border border-border text-gray-300 hover:text-white">Class 11th</button>
+                <button onclick="filterCategory('10th')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-surface hover:bg-surfaceHover border border-border text-gray-300 hover:text-white">Class 10th</button>
+                <button onclick="filterCategory('Commerce')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-surface hover:bg-surfaceHover border border-border text-gray-300 hover:text-white">Commerce</button>
+                <button onclick="filterCategory('Science')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-surface hover:bg-surfaceHover border border-border text-gray-300 hover:text-white">Science</button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="w-full sm:w-[360px] relative group shrink-0">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="ph-duotone ph-magnifying-glass text-xl text-gray-500 group-focus-within:text-primary transition-colors"></i>
+                </div>
+                <input type="text" id="searchInput" placeholder="Search courses, subjects, batches..." 
+                    class="w-full bg-surface border border-border text-white text-sm font-medium rounded-xl block pl-11 pr-10 py-3 transition-all placeholder:text-gray-500 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/60 shadow-inner">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-white hidden transition-colors">
+                    <i class="ph-fill ph-x-circle text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingIndicator" class="flex flex-col items-center justify-center py-24">
+            <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4"></div>
+            <p class="font-mono text-sm text-gray-400 uppercase tracking-widest animate-pulse">Syncing STUDYBOX Database...</p>
+        </div>
+
+        <!-- Course Cards Grid -->
+        <div id="batchGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 hidden">
+            <!-- Cards populated via JS -->
+        </div>
+
+        <!-- Load More Pagination Button -->
+        <div id="loadMoreContainer" class="w-full flex justify-center mt-12 mb-8 hidden pop-in">
+            <button id="loadMoreBtn" onclick="loadMore()" class="group px-8 py-3.5 bg-surface hover:bg-surfaceHover border border-border hover:border-primary/50 rounded-xl text-white font-bold text-sm transition-all duration-300 shadow-glass hover:shadow-neon btn-press flex items-center gap-2">
+                <span>Load More Contents</span>
+                <i class="ph-bold ph-caret-down group-hover:translate-y-1 transition-transform"></i>
+            </button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-24 text-center pop-in">
+            <div class="w-20 h-20 bg-surface rounded-2xl flex items-center justify-center mb-5 border border-border shadow-glass">
+                <i class="ph-duotone ph-ghost text-4xl text-gray-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 font-mono">NO COURSES FOUND</h3>
+            <p class="text-gray-400 text-sm max-w-sm">Try tweaking your search input or checking a different category tab.</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-border py-6 text-center text-xs text-gray-500 font-mono">
+        <p>© 2026 STUDYBOX PRO — Monetized Learning & Lecture Platform</p>
+    </footer>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        let batchesData = { new: [], old: [] };
+        let currentTab = 'new';
+        let currentCategory = 'all';
+        let wishlist = JSON.parse(localStorage.getItem('studybox_wishlist') || '[]').map(String);
+
+        const ITEMS_PER_PAGE = 8; 
+        let currentlyDisplayedCount = 0;
+        let currentFilteredData = [];
+
+        const batchGrid = document.getElementById('batchGrid');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const emptyState = document.getElementById('emptyState');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateWishlistCount();
+            fetchBatches();
+        });
+
+        window.handleStudyClick = function(event, batchId) {
+            event.preventDefault();
+
+            // Check 12-Hour Access Key
+            if (!StudyBoxKey.isKeyValid()) {
+                StudyBoxKey.openKeyModal();
+                return;
+            }
+
+            window.location.href = `content.html?id=${batchId}`;
+        };
+
+        async function fetchBatches() {
+            try {
+                const response = await fetch('https://studybeepro.site/nt/batches.json');
+                if (!response.ok) throw new Error("Failed to load JSON");
+                batchesData = await response.json();
+
+                loadingIndicator.classList.add('hidden');
+                batchGrid.classList.remove('hidden');
+                applyFiltersAndRender(true);
+            } catch (error) {
+                console.error("Error loading batches dataset:", error);
+                loadingIndicator.innerHTML = `
+                    <div class="text-center bg-red-950/40 border border-red-500/30 p-6 rounded-2xl max-w-sm backdrop-blur-md">
+                        <i class="ph-duotone ph-warning-octagon text-4xl text-red-500 mb-2 flex justify-center"></i>
+                        <p class="text-red-400 font-bold text-lg font-mono">Failed to load courses</p>
+                        <p class="text-red-200/70 text-xs mt-2">Ensure batches.json exists and your server is running.</p>
+                    </div>`;
+            }
+        }
+
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.length > 0) {
+                clearSearchBtn.classList.remove('hidden');
+            } else {
+                clearSearchBtn.classList.add('hidden');
+            }
+            applyFiltersAndRender(true);
+        });
+
+        window.clearSearch = function() {
+            searchInput.value = '';
+            clearSearchBtn.classList.add('hidden');
+            applyFiltersAndRender(true);
+            searchInput.focus();
+        };
+
+        window.filterCategory = function(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-surface hover:bg-surfaceHover border border-border text-gray-300 hover:text-white';
+            });
+            event.target.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-primary text-black shadow-neon';
+            applyFiltersAndRender(true);
+        };
+
+        window.switchTab = function(tabName) {
+            currentTab = tabName;
+            searchInput.value = '';
+            clearSearchBtn.classList.add('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-border', 'text-white', 'shadow-sm', 'font-semibold');
+                btn.classList.add('text-gray-400', 'font-medium');
+            });
+
+            document.querySelectorAll('.tab-btn i').forEach(icon => {
+                icon.classList.remove('text-primary');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-400', 'font-medium');
+                activeBtn.classList.add('bg-border', 'text-white', 'shadow-sm', 'font-semibold');
+            }
+
+            const activeIcon = document.getElementById(`icon-${tabName}`);
+            if (activeIcon) {
+                activeIcon.classList.add('text-primary');
+            }
+
+            applyFiltersAndRender(true);
+        };
+
+        function applyFiltersAndRender(resetPagination = false) {
+            const query = searchInput.value.toLowerCase().trim();
+
+            if (currentTab === 'wishlist') {
+                const allBatches = [...(batchesData.new || []), ...(batchesData.old || [])];
+                const uniqueBatches = Array.from(new Map(allBatches.map(item => [String(item.id), item])).values());
+                currentFilteredData = uniqueBatches.filter(batch => wishlist.includes(String(batch.id)));
+            } else {
+                currentFilteredData = batchesData[currentTab] || [];
+            }
+
+            if (currentCategory !== 'all') {
+                currentFilteredData = currentFilteredData.filter(batch => {
+                    return (batch.category && batch.category.toLowerCase() === currentCategory.toLowerCase()) ||
+                           (batch.class && batch.class.toLowerCase() === currentCategory.toLowerCase()) ||
+                           batch.title.toLowerCase().includes(currentCategory.toLowerCase());
+                });
+            }
+
+            if (query) {
+                currentFilteredData = currentFilteredData.filter(batch => {
+                    return batch.title.toLowerCase().includes(query) || String(batch.id).includes(query);
+                });
+            }
+
+            if (resetPagination) {
+                currentlyDisplayedCount = 0;
+                batchGrid.innerHTML = '';
+            }
+
+            renderBatchSlice();
+        }
+
+        function renderBatchSlice() {
+            if (currentFilteredData.length === 0) {
+                batchGrid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                loadMoreContainer.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            emptyState.classList.remove('flex');
+            batchGrid.classList.remove('hidden');
+
+            const nextCount = Math.min(currentlyDisplayedCount + ITEMS_PER_PAGE, currentFilteredData.length);
+            const itemsToRender = currentFilteredData.slice(currentlyDisplayedCount, nextCount);
+
+            const html = itemsToRender.map((batch, index) => createCardHTML(batch, index)).join('');
+
+            if (currentlyDisplayedCount === 0) {
+                batchGrid.innerHTML = html;
+            } else {
+                batchGrid.insertAdjacentHTML('beforeend', html);
+            }
+
+            currentlyDisplayedCount = nextCount;
+
+            if (currentlyDisplayedCount < currentFilteredData.length) {
+                loadMoreContainer.classList.remove('hidden');
+            } else {
+                loadMoreContainer.classList.add('hidden');
+            }
+        }
+
+        window.loadMore = function() {
+            const btn = document.getElementById('loadMoreBtn');
+            if (btn.disabled) return;
+
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="ph-duotone ph-spinner animate-spin text-lg"></i> Loading...`;
+
+            setTimeout(() => {
+                renderBatchSlice();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 300);
+        };
+
+        function createCardHTML(batch, index) {
+            const id = String(batch.id);
+            const isInWishlist = wishlist.includes(id);
+            const heartIconClass = isInWishlist ? 'ph-fill ph-heart text-red-500 scale-110' : 'ph-duotone ph-heart text-white group-hover/wish:text-red-400';
+            const delay = (index % ITEMS_PER_PAGE) * 40 + 'ms';
+
+            const isPro = batch.title && batch.title.toUpperCase().includes('PRO');
+            const badgeHTML = isPro ? `
+                <div class="absolute top-3 left-3 flex items-center gap-2 z-10">
+                    <span class="bg-black/70 backdrop-blur border border-primary/40 text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded text-primary flex items-center gap-1 shadow-glass">
+                        <i class="ph-fill ph-star text-primary"></i> PRO
+                    </span>
+                </div>
+            ` : `
+                <div class="absolute top-3 left-3 flex items-center gap-2 z-10">
+                    <span class="bg-black/60 backdrop-blur border border-white/10 text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded text-gray-300 flex items-center gap-1 shadow-glass">
+                        BATCH 2026
+                    </span>
+                </div>
+            `;
+
+            return `
+                <div class="premium-card bg-surface rounded-2xl overflow-hidden flex flex-col relative pop-in border border-border group" style="animation-delay: ${delay}">
+                    <!-- Thumbnail Image Area -->
+                    <div class="relative w-full aspect-video overflow-hidden bg-background border-b border-border shine-effect cursor-pointer" onclick="handleStudyClick(event, '${id}')">
+                        <img src="${batch.thumbnail}" alt="Course Thumbnail" loading="lazy" class="card-img w-full h-full object-cover transition-transform duration-700 ease-out">
+
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-90"></div>
+
+                        ${badgeHTML}
+
+                        <!-- Wishlist Toggle -->
+                        <button onclick="toggleWishlist(event, '${id}')" class="absolute top-3 right-3 w-9 h-9 bg-black/50 backdrop-blur rounded-full flex items-center justify-center border border-white/20 hover:bg-surface transition-all duration-300 btn-press z-20 group/wish">
+                            <i id="heart-icon-${id}" class="${heartIconClass} text-[18px] transition-all duration-300"></i>
+                        </button>
+
+                        <!-- Hover Play Button Overlay -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                            <div class="w-12 h-12 bg-primary/20 backdrop-blur-md rounded-full flex items-center justify-center border border-primary/60 transform scale-75 group-hover:scale-100 transition-transform duration-300 shadow-neon">
+                                <i class="ph-fill ph-play text-2xl text-primary ml-0.5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Card Body -->
+                    <div class="p-5 flex flex-col flex-1 relative z-20">
+                        <h3 class="text-white font-bold text-[15px] leading-snug mb-4 line-clamp-2 group-hover:text-primary transition-colors duration-300">${batch.title}</h3>
+
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-border/50">
+                            <div class="flex flex-col">
+                                <span class="text-[9px] text-gray-500 font-mono uppercase tracking-widest mb-0.5">Access</span>
+                                <span class="text-yellow-400 font-mono text-[11px] font-bold flex items-center gap-1.5">
+                                    <i class="ph-bold ph-key text-xs"></i> 12-HR Pass
+                                </span>
+                            </div>
+
+                            <button onclick="handleStudyClick(event, '${id}')" class="bg-gradient-to-r from-primary to-orange-500 text-black px-5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 btn-press flex items-center gap-2 shadow-neon hover:shadow-neon-strong hover:-translate-y-0.5">
+                                Let's Study <i class="ph-bold ph-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.toggleWishlist = function(event, batchId) {
+            event.stopPropagation();
+            batchId = String(batchId);
+
+            const index = wishlist.indexOf(batchId);
+            const iconEls = document.querySelectorAll(`#heart-icon-${batchId}`);
+
+            if (index === -1) {
+                wishlist.push(batchId);
+                iconEls.forEach(iconEl => {
+                    iconEl.className = 'ph-fill ph-heart text-red-500 scale-125 transition-all duration-300';
+                    setTimeout(() => iconEl.classList.replace('scale-125', 'scale-110'), 200);
+                });
+            } else {
+                wishlist.splice(index, 1);
+                iconEls.forEach(iconEl => {
+                    iconEl.className = 'ph-duotone ph-heart text-white group-hover/wish:text-red-400 transition-all duration-300 scale-100';
+                });
+
+                if (currentTab === 'wishlist') {
+                    setTimeout(() => applyFiltersAndRender(true), 250);
+                }
+            }
+
+            localStorage.setItem('studybox_wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+        };
+
+        function updateWishlistCount() {
+            const badge = document.getElementById('wishlist-badge');
+            if (wishlist.length > 0) {
+                badge.innerText = wishlist.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
